@@ -25,12 +25,14 @@ namespace DotnetAPIApp.Services
             consumer.Received += (sender, e) =>
             {
                 var body = e.Body.ToArray();
-                var contentType = e.BasicProperties.ContentType.ToString();
+                // var contentType = e.BasicProperties.ContentType.ToString();
                 var message = Encoding.UTF8.GetString(body);
-                Console.WriteLine($"Body: {message} ContentType: {contentType}");
+                // Console.WriteLine($"Body: {message} ContentType: {contentType}");
+                Console.WriteLine($"Body: {message}");
+
             };
 
-            channel.BasicConsume("akenarin-q.auth.direct", true, consumer);
+            // channel.BasicConsume("akenarin-q.auth.direct", true, consumer);
             channel.BasicConsume("akenarin-q.auth.fanout", true, consumer);
 
         }
