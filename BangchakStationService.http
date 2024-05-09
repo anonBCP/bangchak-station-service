@@ -1,0 +1,6 @@
+@BangchakStationService_HostAddress = http://localhost:5219
+
+GET {{BangchakStationService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
