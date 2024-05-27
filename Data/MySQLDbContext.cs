@@ -1,7 +1,7 @@
-﻿using DotnetAPIApp.Models;
+﻿using BangchakStationService.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DotnetAPIApp.Data;
+namespace BangchakStationService.Data;
 
 public partial class MySQLDbContext : DbContext
 {

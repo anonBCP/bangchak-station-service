@@ -4,21 +4,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace BangchakStationService.Models
 {
 
-    [Table("category")]
-    public class Category
+    [Table("users")]
+    public class User
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Column("category_name", TypeName = "varchar")]
-        [StringLength(200)]
-        public string Name { get; set; } = null!;
+        [Column("user_id", TypeName = "varchar")]
+        [StringLength(450)]
+        public string UserId { get; set; } = null!;
 
-        [Column("is_active")]
-        public bool IsActive {  get; set; }
-
-      
+        [Column("fullname")]
+        public string Fullname { get; set; } = null!;
 
     }
 }

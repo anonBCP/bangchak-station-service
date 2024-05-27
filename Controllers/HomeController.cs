@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace DotnetAPIApp.Controllers
+namespace BangchakStationService.Controllers
 {
 
     [Route("api")] // http://localhost:port/api

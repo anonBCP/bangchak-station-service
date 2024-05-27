@@ -1,10 +1,10 @@
-using DotnetAPIApp.Data;
 using System.Text.Json.Serialization;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using DotnetAPIApp.Services;
+using BangchakStationService.Services.RabbitMQ;
+using BangchakStationService.Services.UserService;
+using BangchakStationService.Consumers;
 
 var builder = WebApplication.CreateBuilder(args);
 // var connectionString = builder.Configuration.GetConnectionString("IdentityDbContext") ?? throw new InvalidOperationException("Connection string 'DotnetAPIAppIdentityDbContextConnection' not found.");
@@ -40,8 +40,15 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.MaxDepth = 64;
 });
 
+// custom service
+
 // add rabbitmq to hosts service
-builder.Services.AddHostedService<ServiceRabbitMQ>();
+builder.Services.AddSingleton<IRabbitMQConnectionManager, RabbitMQConnectionManager>();
+
+builder.Services.AddScoped<IUserService, UserService>();
+
+// add rabbitmq consumers
+builder.Services.AddHostedService<AuthServiceConsumer>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
