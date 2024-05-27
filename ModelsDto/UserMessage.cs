@@ -1,4 +1,4 @@
-namespace BangchakStationService.ModelsDto
+﻿namespace BangchakStationService.ModelsDto
 {
     public class UserMessage
     {

@@ -5,6 +5,7 @@ using System.Text;
 using BangchakStationService.Services.RabbitMQ;
 using BangchakStationService.Services.UserService;
 using BangchakStationService.Consumers;
+using BangchakStationService.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 // var connectionString = builder.Configuration.GetConnectionString("IdentityDbContext") ?? throw new InvalidOperationException("Connection string 'DotnetAPIAppIdentityDbContextConnection' not found.");
@@ -15,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors();
 
 // Add DbContext Service
-// builder.Services.AddDbContext<MySQLDbContext>();
+builder.Services.AddDbContext<MySQLDbContext>();
 
 // add jwt service for validate token
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
@@ -40,19 +41,18 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.MaxDepth = 64;
 });
 
-// custom service
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
+
+// custom service
 // add rabbitmq to hosts service
 builder.Services.AddSingleton<IRabbitMQConnectionManager, RabbitMQConnectionManager>();
-
 builder.Services.AddScoped<IUserService, UserService>();
 
 // add rabbitmq consumers
 builder.Services.AddHostedService<AuthServiceConsumer>();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 

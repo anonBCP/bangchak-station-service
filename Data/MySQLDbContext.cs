@@ -14,6 +14,7 @@ public partial class MySQLDbContext : DbContext
     }
 
     public virtual DbSet<Category> Categories { get; set; }
+    public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseMySQL(_configuration.GetConnectionString("MySQLConnectionString")!);
